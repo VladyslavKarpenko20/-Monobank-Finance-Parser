@@ -195,7 +195,7 @@ namespace Parsing.Endpoints
                                 case 1:
                                     Console.WriteLine("Оберіть розмір сторінки");
 
-                                    if (!int.TryParse(Console.ReadLine(), out int result))
+                                    if (int.TryParse(Console.ReadLine(), out int result))
                                     {
                                         await _services.UpdatePageSize(result);
                                     }
