@@ -19,7 +19,7 @@ namespace Parsing.Interface
 
         Task<AppSettings> GetAppSettings();
 
-        Task<LimitRequest?> GetLimitRequest();
+        Task<LimitRequest> GetLimitRequest();
 
         Task UpdateLimitTime(LimitRequest limit);
 

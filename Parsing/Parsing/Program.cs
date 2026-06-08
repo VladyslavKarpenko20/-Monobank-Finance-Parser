@@ -1,18 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Query.SqlExpressions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Npgsql;
 using Parsing.Data;
 using Parsing.Endpoints;
 using Parsing.Interface;
 using Parsing.Repository;
 using Parsing.Services;
-using System;
-using System.Diagnostics.CodeAnalysis;
-using System.Reflection.Metadata.Ecma335;
-using System.Text.Json;
 using Parsing.BackgroundServices;
 
 

@@ -26,7 +26,7 @@ namespace Parsing.BackgroundServices
         public void Run()
         {
             I_Running = true;
-            Task.Run(async () => RunAsync());
+            Task.Run(async () => await RunAsync());
         }
 
         public void Stop()

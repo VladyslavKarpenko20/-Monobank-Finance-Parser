@@ -10,11 +10,11 @@ namespace Parsing.Models
     {
         public int Id { get; set; }
 
-        public string CurentName { get; set; }
+        public string? CurentName { get; set; }
 
-        public string TransactionId { get; set; }
+        public string? TransactionId { get; set; }
 
-        public string Descriptions { get; set; }
+        public string? Descriptions { get; set; }
 
         public decimal Ammount { get; set; }
 

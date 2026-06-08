@@ -174,8 +174,13 @@ namespace Parsing.Services
             }
                 await _repository.UpdateAppSettings(settings);
         }
-        public async Task UpdateAskPageSize(string AskPageSize)
+        public async Task UpdateAskPageSize(string? AskPageSize)
         {
+            if (string.IsNullOrEmpty(AskPageSize))
+            {
+                Console.WriteLine("AskPageSize = null");
+                return;
+            }
             if (AskPageSize.Trim().ToLower() != "так" && AskPageSize.Trim().ToLower() != "ні")
             {
                 throw new Exception("Не правильно вказані данні ");
@@ -214,11 +219,12 @@ namespace Parsing.Services
                 throw new Exception("Не правильно вказані данні ");
 
 
-            return await Mapping(x => x.CurentName.ToLower() == Name.ToLower(), Page, PageSize);
+            return await Mapping(x => x.CurentName != null && x.CurentName.ToLower() == Name.ToLower(), Page, PageSize);
         }
 
         private async Task<List<TransactionsReadDto>> Mapping(Expression<Func<Transactions, bool>> expression, int Page , int PageSize)
         {
+
             if (Page <= 0 || PageSize <= 0 || PageSize > 10000)
             {
                 throw new Exception("Не правильно вказані данні ");

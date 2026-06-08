@@ -62,13 +62,18 @@ namespace Parsing.Endpoints
                             else
                                 PageSize = settings.PageSize;
 
-                            await DisplayTransactions(await _services.GetTransactionsByPage(Page, PageSize));
+                            DisplayTransactions(await _services.GetTransactionsByPage(Page, PageSize));
                             break;
 
                         case 2:
-                            string MonobankToken;
+                            string? MonobankToken;
 
                             if (token == null)
+                            {
+                                Console.WriteLine("Помилка ми не змогли витягнути токен з бази данних ");
+                                continue;
+                            }
+                            else if (token.Token == null)
                             {
                                 Console.WriteLine("Уведiть ваш токен MonoBank");
                                 MonobankToken = Console.ReadLine();
@@ -76,15 +81,17 @@ namespace Parsing.Endpoints
                             else
                                 MonobankToken = token.Token;
 
-                            await _services.FindAndSaveTransactions(MonobankToken.Trim());
+
+                            if (MonobankToken != null)
+                                await _services.FindAndSaveTransactions(MonobankToken.Trim());
 
                             break;
 
                         case 3:
                             Console.WriteLine("Початкова дата (приклад 2025-05-26)");
-                            string from = Console.ReadLine();
+                            string? from = Console.ReadLine();
                             Console.WriteLine("Дата закiнчення (приклад 2026-06-03)");
-                            string to = Console.ReadLine();
+                            string? to = Console.ReadLine();
 
                             Console.WriteLine("Оберіть сторінку");
 
@@ -109,9 +116,7 @@ namespace Parsing.Endpoints
                             {
                                 resultTo = resultTo.AddDays(1);
 
-                                Console.WriteLine($"From {resultFrom.ToUniversalTime()}| resultTo {resultTo.ToUniversalTime()}");
-
-                                await DisplayTransactions(await _services.GetByDate(resultFrom.ToUniversalTime(), resultTo.ToUniversalTime(), PageForDate, PageSizeForDate));
+                                DisplayTransactions(await _services.GetByDate(resultFrom.ToUniversalTime(), resultTo.ToUniversalTime(), PageForDate, PageSizeForDate));
 
                             }
                             else
@@ -143,19 +148,25 @@ namespace Parsing.Endpoints
                             {
                                 case 1:
                                     Console.WriteLine("Список транзакцій за доходом");
-                                    await DisplayTransactions(await _services.GetTransactionsByIncome(FilterPage, FilterPageSize));
+                                    DisplayTransactions(await _services.GetTransactionsByIncome(FilterPage, FilterPageSize));
                                     continue;
 
                                 case 2:
                                     Console.WriteLine("Список транзакцій за витратами");
-                                    await DisplayTransactions(await _services.GetTransactionsByCosts(FilterPage, FilterPageSize));
+                                    DisplayTransactions(await _services.GetTransactionsByCosts(FilterPage, FilterPageSize));
                                     continue;
 
                                 case 3:
                                     Console.WriteLine("Уведіть імя ");
-                                    string Name = Console.ReadLine();
+                                    string? Name = Console.ReadLine();
+
+                                    if (Name == null)
+                                    {
+                                        Console.WriteLine("Імя не може бути пустим ");
+                                        continue;
+                                    }
                                     Console.WriteLine($"Список транзакцій за імям {Name}");
-                                    await DisplayTransactions(await _services.GetTransactionsByName(Name, FilterPage, FilterPageSize));
+                                    DisplayTransactions(await _services.GetTransactionsByName(Name, FilterPage, FilterPageSize));
                                     continue;
 
                                 case 4:
@@ -183,21 +194,34 @@ namespace Parsing.Endpoints
 
                                 case 1:
                                     Console.WriteLine("Оберіть розмір сторінки");
-                                    int UpdatePageSize = int.Parse(Console.ReadLine());
-                                    await _services.UpdatePageSize(UpdatePageSize);
 
+                                    if (!int.TryParse(Console.ReadLine(), out int result))
+                                    {
+                                        await _services.UpdatePageSize(result);
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Ви ввели не правильне значення");
+                                        continue;
+                                    }
                                     break;
 
                                 case 2:
                                     Console.WriteLine("Вкажіть режим запиту розміру сторінки (Так/Ні)");
-                                    string AskPageSize = Console.ReadLine();
+                                    string? AskPageSize = Console.ReadLine();
                                     await _services.UpdateAskPageSize(AskPageSize);
 
                                     break;
 
                                 case 3:
                                     Console.WriteLine("Уведіть ваш токен ");
-                                    string MonoBankToken = Console.ReadLine();
+                                    string? MonoBankToken = Console.ReadLine();
+
+                                    if (token == null)
+                                    {
+                                        Console.WriteLine("Помилка token не завантажено з бази данних ");
+                                        continue;
+                                    }
 
                                     token.Token = MonoBankToken;
 
@@ -236,7 +260,7 @@ namespace Parsing.Endpoints
         }
 
 
-        public async Task DisplayTransactions(List<TransactionsReadDto> transactions)
+        public void DisplayTransactions(List<TransactionsReadDto> transactions)
         {
             if (!transactions.Any())
             {
@@ -260,7 +284,7 @@ namespace Parsing.Endpoints
             while (true)
             {
 
-                string prompt = Console.ReadLine();
+                string? prompt = Console.ReadLine();
 
                 if (int.TryParse(prompt, out int number))
                     return number;

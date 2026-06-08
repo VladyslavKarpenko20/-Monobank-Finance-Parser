@@ -8,13 +8,13 @@ namespace Parsing.Models
 {
     public class MonoBankApi
     {
-        public string id { get; set; }
+        public string? id { get; set; }
 
-        public string description { get; set; }
+        public string? description { get; set; }
 
         public long amount { get; set; }
 
-        public string counterName { get; set; }
+        public string? counterName { get; set; }
 
         public long time { get; set; }
 
