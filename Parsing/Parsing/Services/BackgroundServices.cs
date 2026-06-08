@@ -1,12 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Parsing.Interface;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Runtime.InteropServices.Marshalling;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Parsing.BackgroundServices
 {

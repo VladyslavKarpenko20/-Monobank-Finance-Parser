@@ -1,15 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore.Update.Internal;
-using Npgsql.Internal;
-using Parsing.DtoModels;
+﻿using Parsing.DtoModels;
 using Parsing.Interface;
-using Parsing.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
 
 namespace Parsing.Endpoints
 {

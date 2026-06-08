@@ -1,19 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Update.Internal;
 using Parsing.DtoModels;
 using Parsing.Interface;
-using Parsing.Migrations;
 using Parsing.Models;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Security;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
-using System.Transactions;
+
 
 namespace Parsing.Services
 {
