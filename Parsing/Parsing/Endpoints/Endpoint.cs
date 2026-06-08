@@ -272,7 +272,7 @@ namespace Parsing.Endpoints
                 {
                     var tipe = t.Ammount > 0 ? "Дохiд" : "Витрата";
 
-                    Console.WriteLine($" Дата: {t.Time:yyyy:mm:dd:mm}| Тип: {tipe}| Сумма: {Math.Abs(t.Ammount):F2} грн| Опис: {t.Descriptions}| Iмя: {t.CurentName}| Баланс: {t.Balance}");
+                    Console.WriteLine($" Дата: {t.Time:yyyy:MM:dd:mm}| Тип: {tipe}| Сумма: {Math.Abs(t.Ammount):F2} грн| Опис: {t.Descriptions}| Iмя: {t.CurentName}| Баланс: {t.Balance}");
                 }
             }
         }
